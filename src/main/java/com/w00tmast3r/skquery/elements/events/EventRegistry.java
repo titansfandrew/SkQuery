@@ -7,7 +7,7 @@ import com.w00tmast3r.skquery.SkQuery;
 import com.w00tmast3r.skquery.api.AbstractTask;
 import com.w00tmast3r.skquery.elements.events.bukkit.AttachedTabCompleteEvent;
 import com.w00tmast3r.skquery.elements.events.lang.*;
-import com.w00tmast3r.skquery.util.custom.projectile.ItemProjectileHitEvent;
+import com.w00tmast3r.skquery.util.projectile.ItemProjectileHitEvent;
 
 import java.io.IOException;
 
@@ -98,7 +98,7 @@ public class EventRegistry extends AbstractTask {
         EventValues.registerEventValue(EntityChangeBlockEvent.class, ItemStack.class, new Getter<ItemStack, EntityChangeBlockEvent>() {
             @Override
             public ItemStack get(EntityChangeBlockEvent entityChangeBlockEvent) {
-                return entityChangeBlockEvent.getEntity() instanceof FallingBlock ? new ItemStack(((FallingBlock) entityChangeBlockEvent.getEntity()).getMaterial()) : null;
+                return entityChangeBlockEvent.getEntity() instanceof FallingBlock ? new ItemStack(((FallingBlock) entityChangeBlockEvent.getEntity()).getBlockData().getMaterial()) : null;
             }
         }, 0);
         EventValues.registerEventValue(EntityChangeBlockEvent.class, Entity.class, new Getter<Entity, EntityChangeBlockEvent>() {
@@ -161,8 +161,6 @@ public class EventRegistry extends AbstractTask {
                 return attachedTabCompleteEvent.getSender() instanceof Player ? ((Player) attachedTabCompleteEvent.getSender()) : null;
             }
         }, 0);
-
-        registerEvent("*Custom Effect Logic", EvtCustomEffects.class, CustomEffectEvent.class, "custom effect [logic [for]] %string%");
 
         registerEvent("*Custom Expression Logic", EvtCustomExpressions.class, CustomExpressionEvent.class, "custom expression [logic [for]] %string%");
 

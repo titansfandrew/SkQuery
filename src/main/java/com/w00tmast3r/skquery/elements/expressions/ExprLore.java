@@ -42,7 +42,7 @@ public class ExprLore extends SimplePropertyExpression<ItemStack, String> {
     }
 
     @SuppressWarnings("incomplete-switch")
-	@Override
+    @Override
     public void change(final Event e, final Object[] delta, final Changer.ChangeMode mode) throws UnsupportedOperationException {
         String l = delta == null ? "" : (String) delta[0];
         ItemStack i = getExpr().getSingle(e);
@@ -59,7 +59,7 @@ public class ExprLore extends SimplePropertyExpression<ItemStack, String> {
         }
     }
 
-	@Override
+    @Override
     public Class<?>[] acceptChange(Changer.ChangeMode mode) {
         if (mode == Changer.ChangeMode.SET || mode == Changer.ChangeMode.RESET)
             return CollectionUtils.array(String.class);

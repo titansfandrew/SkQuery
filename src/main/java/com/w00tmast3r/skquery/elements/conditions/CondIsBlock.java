@@ -33,8 +33,8 @@ public class CondIsBlock extends Condition {
 	}
 
 	@Override
-	public String toString(Event event, boolean b) {
-		return "is block";
+	public String toString(Event event, boolean debug) {
+		return itemtype.toString(event, debug) + " is a block";
 	}
 
 }

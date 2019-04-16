@@ -9,35 +9,40 @@ import com.w00tmast3r.skquery.api.Description;
 import com.w00tmast3r.skquery.api.Examples;
 import com.w00tmast3r.skquery.api.Name;
 import com.w00tmast3r.skquery.api.Patterns;
-import com.w00tmast3r.skquery.util.custom.note.MidiUtil;
+import com.w00tmast3r.skquery.util.note.MidiUtil;
+
 import org.bukkit.event.Event;
 
 @Name("Stop MIDI")
 @Description("Stops a midi file that is playing.")
-@Examples("on join:;->play midi \"login\" to player;wait 5 seconds;stop midi \"login\"")
+@Examples({"on join:",
+		"	play midi \"login\" to player",
+		"	wait 5 seconds",
+		"	stop midi \"login\""})
 @Patterns("stop midi [id] %string%")
 public class EffMIDIStop extends Effect {
 
-    private Expression<String> midi;
+	private Expression<String> ID;
 
-    @Override
-    protected void execute(Event event) {
-        String m = midi.getSingle(event);
-        if(m == null) return;
-        if (MidiUtil.isPlaying(m)) {
-        	MidiUtil.stopMidi(m);
-        }
-    }
-
-    @Override
-    public String toString(Event event, boolean b) {
-        return "stop midi";
-    }
-
-    @SuppressWarnings("unchecked")
+	@SuppressWarnings("unchecked")
 	@Override
-    public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult) {
-        midi = (Expression<String>) expressions[0];
-        return true;
-    }
+	public boolean init(Expression<?>[] expressions, int markedPattern, Kleenean kleenean, SkriptParser.ParseResult parseResult) {
+		ID = (Expression<String>) expressions[0];
+		return true;
+	}
+	
+	@Override
+	protected void execute(Event event) {
+		String track = ID.getSingle(event);
+		if (track == null)
+			return;
+		if (MidiUtil.isPlaying(track))
+			MidiUtil.stop(track);
+	}
+
+	@Override
+	public String toString(Event event, boolean debug) {
+		return "stop midi " + ID.toString(event, debug);
+	}
+
 }

@@ -15,7 +15,7 @@ import com.w00tmast3r.skquery.api.Patterns;
 
 import java.util.Arrays;
 
-@Patterns("%itemtypes% with lore %string%")
+@Patterns("%itemtypes% lored %string%")
 public class ExprLoredItemStack extends PropertyExpression<ItemType, ItemType> {
 
     private Expression<String> lore;
@@ -46,7 +46,7 @@ public class ExprLoredItemStack extends PropertyExpression<ItemType, ItemType> {
     }
 
     @SuppressWarnings("unchecked")
-	@Override
+    @Override
     public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult) {
         setExpr((Expression<ItemType>) expressions[0]);
         lore = (Expression<String>) expressions[1];
